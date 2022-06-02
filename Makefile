@@ -2,7 +2,7 @@ CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra -glldb
 RM		= rm -f
 NAME	= libftprintf.a
-SRCS	= ft_libftprintf.c ft_putchar.c ft_putstr.c ft_putnbr.c
+SRCS	= ft_libftprintf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_strlen.c ft_putnbr_base.c
 OBJS	= ${SRCS:.c=.o}
 
 AR		= ar rc

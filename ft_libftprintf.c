@@ -1,87 +1,69 @@
 
 #include "libftprintf.h"
 
-static int count_param(char const* str)
+void	ft_putvoid(void *s)
 {
-	int	i;
-	int	count;
+	int x;
 
-	count  = 0;
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '%')
-			count++;
-		i++;;
-	}
-	return (i);
+	x = (int) s;
+	ft_putnbr_base(x,"0123456789ABCDEF");
 }
 
-/* 
-• %c Imprime un solo carácter.
-• %s Imprime una string (como se define por defecto en C).
-• %p El puntero void * dado como argumento se imprime en formato hexadecimal.
-• %d Imprime un número decimal (base 10).
-• %i Imprime un entero en base 10.
-• %u Imprime un número decimal (base 10) sin signo.
-• %x Imprime un número hexadecimal (base 16) en minúsculas.
-• %X Imprime un número hexadecimal (base 16) en mayúsculas.
-• % % para imprimir el símbolo del porcentaje.
-*/
-
-void print_type(va_list *args, char c)
+void print_type(va_list args, char c)
 {
 	if(c == 'i' || c == 'd')
-		ft_putnbr(va_arg(*args, int));
+		ft_putnbr(va_arg(args, int));
 	else if(c == 'c')
-		ft_putchar(va_arg(*args, char));
+		ft_putchar(va_arg(args, int));
 	else if(c == 's')
-		ft_putstr(va_arg(*args, char *));
+		ft_putstr(va_arg(args, char *));
 	else if(c == 'u')
-		ft_putnbr_unsig(va_arg(*args, unsigned char));
-	/* else if(c == 'p')
-		ft_putvoid(va_arg(args, void));
+		ft_putnbr_unsig(va_arg(args, unsigned int));
+	else if(c == 'p')
+		ft_putvoid(va_arg(args, void *));
 	else if(c == 'x')
-
-	else if(c == 'X') */
-
+		ft_putnbr_base(va_arg(args, int),"0123456789abcdef");
+	else if(c == 'X')
+		ft_putnbr_base(va_arg(args, int),"0123456789ABCDEF");
 	else if(c == '%')
 		write(1, &c, 1);
 }
 
-/* void	ft_putvoid(const void *s)
-{
-	unsigned char *p;
-
-	p = (unsigned char *)
-} */
-
 int ft_printf(char const *str, ...)
 {
 	va_list  args;
-
-	int num;
 	int i;
+	COUNT_p  count;
 
+	count = 0;
 	i = 0;
-	num = count_param(str);
-	va_start(args, num);
+	va_start(args, str);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '%')
 		{
-			print_type(&args, str[i + 1]);
-			i++;;
+			print_type(args, str[i + 1]);
+			i++;
 		}
 		else
+		{
 			ft_putchar(str[i]);
+		}
 		i++;
 	}
 	va_end(args);
+	return (count);
 }
 
-int main()
+/* int main()
 {
-	ft_printf("Hola que tal tio, tengo %i años y mi lema favorito es %s\n finalmente decirte que mi letra de la suerte es la %c", 24, "NUNCA TE RINDAS", 'c');
+	int x;
+	char *nombre = "Gabriel Castro"
+	int edad = 18;
+	char c = 'G';
+	unsigned int mayor = 2147483649;
+	x = ft_printf("hola mi nombre es %s, tengo %i años, mi letra favorita es la %c, mi edad en hexadecimal es %x y %X, me gusta el simbolo %%\n %u es mayor que el primitivo de int\n\n", nombre, edad, c, edad, edad, mayor);
+	printf("%i\n", x);
+
 	return (0);
-}
+} */

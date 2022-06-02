@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcastro- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gcastro- <gcastro-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 18:40:59 by gcastro-          #+#    #+#             */
-/*   Updated: 2022/04/08 18:41:01 by gcastro-         ###   ########.fr       */
+/*   Created: 2021/11/05 13:35:51 by gcastro-          #+#    #+#             */
+/*   Updated: 2022/04/08 18:15:31 by gcastro-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putchar(char c)
+int	ft_strlen(const char *c)
 {
-	write (1, &c, 1);
-	count++;
+	int	i;
+
+	i = 0;
+	while (c[i])
+		i++;
+	return (i);
 }
