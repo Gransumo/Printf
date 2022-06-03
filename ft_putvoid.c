@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putvoid.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcastro- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 18:40:59 by gcastro-          #+#    #+#             */
-/*   Updated: 2022/04/08 18:41:01 by gcastro-         ###   ########.fr       */
+/*   Created: 2022/06/03 13:02:23 by gcastro-          #+#    #+#             */
+/*   Updated: 2022/06/03 13:02:25 by gcastro-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putchar(char c, t_data len)
+void	ft_putvoid(void *s, t_data len)
 {
-	len.len += write (1, &c, 1);
+	int	x;
+
+	x = (int) s;
+	ft_putnbr_base (x,"0123456789ABCDEF", len);
 }

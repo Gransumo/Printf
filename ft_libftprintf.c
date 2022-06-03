@@ -1,69 +1,68 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_libftprintf.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gcastro- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/03 13:02:37 by gcastro-          #+#    #+#             */
+/*   Updated: 2022/06/03 13:02:39 by gcastro-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putvoid(void *s)
+void print_type(va_list args, char c, t_data len)
 {
-	int x;
-
-	x = (int) s;
-	ft_putnbr_base(x,"0123456789ABCDEF");
+	if (c == 'i' || c == 'd')
+		ft_putnbr (va_arg(args, int), len);
+	else if (c == 'c')
+		ft_putchar (va_arg(args, int), len);
+	else if (c == 's')
+		ft_putstr (va_arg(args, char *), len);
+	else if (c == 'u')
+		ft_putnbr_unsig (va_arg(args, unsigned int), len);
+	else if (c == 'p')
+		ft_putvoid (va_arg(args, void *), len);
+	else if (c == 'x')
+		ft_putnbr_base (va_arg(args, int), "0123456789abcdef", len);
+	else if (c == 'X')
+		ft_putnbr_base (va_arg(args, int), "0123456789ABCDEF", len);
+	else if (c == '%')
+		len.len = write (1, &c, 1);
 }
 
-void print_type(va_list args, char c)
+int	ft_printf(char const *str, ...)
 {
-	if(c == 'i' || c == 'd')
-		ft_putnbr(va_arg(args, int));
-	else if(c == 'c')
-		ft_putchar(va_arg(args, int));
-	else if(c == 's')
-		ft_putstr(va_arg(args, char *));
-	else if(c == 'u')
-		ft_putnbr_unsig(va_arg(args, unsigned int));
-	else if(c == 'p')
-		ft_putvoid(va_arg(args, void *));
-	else if(c == 'x')
-		ft_putnbr_base(va_arg(args, int),"0123456789abcdef");
-	else if(c == 'X')
-		ft_putnbr_base(va_arg(args, int),"0123456789ABCDEF");
-	else if(c == '%')
-		write(1, &c, 1);
-}
+	va_list	args;
+	int		i;
+	t_data	len;
 
-int ft_printf(char const *str, ...)
-{
-	va_list  args;
-	int i;
-	COUNT_p  count;
-
-	count = 0;
+	len.len = 0;
 	i = 0;
 	va_start(args, str);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '%')
 		{
-			print_type(args, str[i + 1]);
+			print_type(args, str[i + 1], len);
 			i++;
 		}
 		else
 		{
-			ft_putchar(str[i]);
+			ft_putchar(str[i], len);
 		}
 		i++;
 	}
 	va_end(args);
-	return (count);
+	return (len.len);
 }
 
-/* int main()
+int main()
 {
 	int x;
-	char *nombre = "Gabriel Castro"
-	int edad = 18;
-	char c = 'G';
-	unsigned int mayor = 2147483649;
-	x = ft_printf("hola mi nombre es %s, tengo %i años, mi letra favorita es la %c, mi edad en hexadecimal es %x y %X, me gusta el simbolo %%\n %u es mayor que el primitivo de int\n\n", nombre, edad, c, edad, edad, mayor);
-	printf("%i\n", x);
 
+	x = ft_printf("mi nombre es %s, tengo %i(%d) años, mi letra favorita es la %c, mi edad en hexa en min es %x y en may es %X, tengo un 100%% de locura.\n", "GABRIEL CASTRO", 18, 18, 'G', 18, 18);
+	printf("\n\n%i\n", x);
 	return (0);
-} */
+}

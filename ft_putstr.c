@@ -12,10 +12,9 @@
 
 #include "libftprintf.h"
 
-void	ft_putstr(char *s)
+void	ft_putstr(char *s, t_data len)
 {
 	if (!s)
 		return ;
-	write (1, s, ft_strlen(s));
-	count += ft_strlen(s);
+	len.len += write (1, s, ft_strlen(s));
 }

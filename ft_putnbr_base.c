@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libftprintf.h"
 
-static int	checkError(const char *base)
+static int	check_error(const char *base)
 {
 	int	i;
 	int	j;
@@ -37,24 +37,24 @@ static int	checkError(const char *base)
 	return (1);
 }
 
-void	ft_putnbr_base(int nbr, const char *base)
+void	ft_putnbr_base(int nbr, const char *base, t_data len)
 {
 	long int	nbr2;
 
 	nbr2 = nbr;
-	if (checkError(base) == 1)
+	if (check_error(base) == 1)
 	{
 		if (nbr2 < 0)
 		{
-			ft_putchar ('-');
+			ft_putchar ('-', len);
 			nbr2 = -nbr2;
 		}
 		if (nbr2 < ft_strlen (base))
-			ft_putchar(base[nbr]);
+			ft_putchar(base[nbr], len);
 		else if (nbr2 >= ft_strlen (base))
 		{
-			ft_putnbr_base(nbr2 / ft_strlen(base), base);
-			ft_putchar(base[nbr2 % ft_strlen(base)]);
+			ft_putnbr_base(nbr2 / ft_strlen(base), base, len);
+			ft_putchar(base[nbr2 % ft_strlen(base)], len);
 		}
 	}
 }
